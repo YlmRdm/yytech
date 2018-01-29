@@ -1,0 +1,46 @@
+<!-- Navbar Start -->
+ <nav class="navbar sticky-top navbar-expand-lg navbar-light bg-light" role="banner">
+  <a class="navbar-brand" href="{% url 'home' %}">YALIM ERDEM</a> <!-- Navbar Brand -->
+  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+    <span class="navbar-toggler-icon"></span>
+  </button>
+
+    <!-- Main Pages -->
+  <div class="collapse navbar-collapse" id="navbarSupportedContent">
+    <ul class="navbar-nav mr-auto">
+      {% if request.user.is_authenticated %}
+      <li class="nav-item">
+        <a class="nav-link" href="{% url 'post:create' %}">Add Post <span class="sr-only">(current)</span></a>
+      </li>
+      {% endif %}
+      <li class="nav-item">
+        <a class="nav-link" href="{% url 'home' %}">Home <span class="sr-only">(current)</span></a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" href="{% url 'post:index' %}">Blog</a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" href="#">About</a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" href="#">Contact</a>
+      </li>
+            {% if not request.user.is_authenticated %}
+              <li class="nav-item"><a class="nav-link" href="{% url 'accounts:register' %}">Register</a></li>
+              <li class="nav-item"><a class="nav-link" href="{% url 'accounts:login' %}">Login</a></li>
+            {% else %}
+              <li class="nav-item"><a class="nav-link" href="{% url 'accounts:logout' %}">Logout</a></li>
+            {% endif %}
+    </ul>
+  </div>
+
+  <!-- Search Field -->
+  <form class="form-inline my-2 my-lg-0" role="search" method="GET" action="">
+    <div class="input-group">
+          <input class="form-control mr-sm-2" type="text" placeholder="Search" name="q" aria-label="Search" value="{{ request.GET.q }}">
+        <span class="input-group-btn">
+          <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
+        </span>
+    </div>
+  </form>
+</nav>
